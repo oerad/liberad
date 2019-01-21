@@ -5,13 +5,13 @@
 3.  [Structure](#structure)
 4.  [Workflow](#workflow)
 5.  [Examples](#examples)
-	 
+
 ### Introduction
-	 
+
 Liberad is an open source C++ 11 library for interfacing with Oerad GPR/WPR devices. It is intended for developers, students and researchers who wish to get raw radar data and/or develop data analysis tools themselves. Liberad is built on top of libusb and offers synchronous and asynchronous communication mechanisms, full control over the radar and basic logging functionality. It is licensed under GPLv3 and later.
 
 ### Installation
-	
+
 Current installation instructions are for Unix systems. Future releases will include support for Windows. We're using cmake for easy portability.
 
 1. Download or clone the project to your system.
@@ -19,24 +19,24 @@ Current installation instructions are for Unix systems. Future releases will inc
 3. open a terminal in the download location or cd to it
 
 		cd 'download/location/of/liberad'
-		
+
 4. Generate a folder to store your build files, for example:
 
 		mkdir _build
-	
-5. Generate your build files. 
 
-		cmake -H -B._build -G "Unix Makefiles"
+5. Generate your build files.
+
+		cmake -H. -B._build -G "Unix Makefiles"
 
 6. Install liberad
 
 		cd _build
 		sudo make install
-			
-7. To use in your project add this to your header file: 
+
+7. To use in your project add this to your header file:
 
 		#include <liberad/liberad.h>
-		
+
 Make sure to link the library in your project's CMakeLists file. More detailed examples can be found in the examples folder.  
 
 ### Structure
@@ -130,12 +130,12 @@ Two buffers need to be allocated by the user - one for incoming data - `unsigned
 Most liberad functions take as a parameter an instance of Oeradar and handle `libusb` commands internally so the user doesn't need to be bothered with particularities of USB connectivity. Users are free to access Oeradar libusb-related fields and methods directly.
 
 ### Workflow
-The basic workflow is: 
-1. Initialize the library 
+The basic workflow is:
+1. Initialize the library
 ```c++
 int liberad_init(LogLevel lvl);
 ```
-2. Get a list of pointers to all valid devices 
+2. Get a list of pointers to all valid devices
 ```c++
 int liberad_get_valid_devices(vector<Oeradar*>* devs);`
 ```
@@ -167,11 +167,11 @@ int liberad_init_device(Oeradar* device);
 		 int liberad_set_async_in_params(Oeradar* device, LiberadCallbackIn user_callback_in, unsigned char* buffer_in, int in_buffer_size);									
 		 ```
 		 - Register the asynchrnous data transfers
-		 - Handle data transfers (usually on a new worker thread) `std::thread worker(liberad_handle_io_async, active_gpr)` 
+		 - Handle data transfers (usually on a new worker thread) `std::thread worker(liberad_handle_io_async, active_gpr)`
 		 ```c++
 		 int liberad_handle_io_async(Oeradar* device);
 		 ```
-		 - Transfer data 
+		 - Transfer data
 		 ```c++
 		 int liberad_get_current_trace_async(Oeradar* device);
 		 int liberad_set_time_window_async(Oeradar* device, TimeWindow length);
@@ -191,10 +191,9 @@ void liberad_exit();
 ```
 
 ### Examples
-There are three examples: 
+There are three examples:
 - A synchronous stepped data transfer mechanism
 - An asynchronous continous data transfer mechanism
-- An asynchronous stepped data transfer mechanism 
+- An asynchronous stepped data transfer mechanism
 
-These can be found in the Examples folder 
-
+These can be found in the Examples folder
