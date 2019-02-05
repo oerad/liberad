@@ -26,7 +26,7 @@ Current installation instructions are for Unix systems. Future releases will inc
 
 5. Generate your build files.
 
-		cmake -H. -B._build -G "Unix Makefiles"
+		cmake -H. -B_build -G "Unix Makefiles"
 
 6. Install liberad
 
