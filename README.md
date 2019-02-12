@@ -5,6 +5,7 @@
 3.  [Structure](#structure)
 4.  [Workflow](#workflow)
 5.  [Examples](#examples)
+6.  [Distance Measurement](#distancemeasurement)
 
 ### Introduction
 
@@ -61,9 +62,9 @@ There are three exit codes from most liberad functions:
 - `LIBERAD_NOT_INIT = -2`.
 
 ##### LiberadCallbackIn
-A function prototype called when incoming data from an Oerad device is available. The user defines it and then passes it to a liberad method that sets it for an instance of an Oerad device.
+A function prototype called when incoming data from an Oerad device is available. The user defines it and then passes it to a liberad method that sets it for an instance of an Oerad device. The `steps` parameter denotes the registered steps from a distance measuring wheel encoder attached to an Oerad GPR.
 ```c++
-typedef void (*LiberadCallbackIn)(unsigned char* buffer, int length);
+typedef void (*LiberadCallbackIn)(unsigned char* buffer, int length, signed char steps);
 ```
 For example
 ```c++
@@ -193,7 +194,10 @@ void liberad_exit();
 ### Examples
 There are three examples:
 - A synchronous stepped data transfer mechanism
-- An asynchronous continous data transfer mechanism
+- An asynchronous continuous data transfer mechanism
 - An asynchronous stepped data transfer mechanism
 
 These can be found in the Examples folder
+
+### Distance Measurement
+Some of Oerad's radar systems are equipped with a stepped distance measuring wheel encoder. Signals from this encoder take the form of steps can now be accessed via the `signed char steps` field of the `LiberdCallbackIn` function prototype. Positive values mean moving forward and negative values mean backward movement. Depending on the wheel size the distance denoted by the steps field vary. That is why an initial calibration is needed in order to get accurate distance data. At Oerad we store the amount of steps generated per one meter and use that value to calculate distance per single step. 
