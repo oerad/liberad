@@ -103,7 +103,8 @@ void LIBUSB_CALL Oeradar::cb_in(libusb_transfer* transfer){
 
   Elog(LIBERAD_DEBUG_2) << "cb_in submit transfer: " << r;
 
-  user_callback_in(transfer->buffer, transfer->actual_length);
+  signed char steps = transfer->buffer[transfer->actual_length - 2];
+  user_callback_in(transfer->buffer, transfer->actual_length, steps);
 
 }
 

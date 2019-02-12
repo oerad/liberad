@@ -16,7 +16,7 @@ static uint8_t out_buffer[OUT_BUFFER_SIZE];
 Oeradar* active_gpr;
 bool running;
 
-void callback_in(unsigned char* buffer, int received);
+void callback_in(unsigned char* buffer, int received, signed char steps);
 void callback_out(unsigned char* buffer, int sent);
 void user_input();
 
@@ -59,9 +59,11 @@ int main(){
 * This is called when new data is available from GPR
 * @param unsigned char* buffer - pointer to user allocated buffer
 * @param int received - num of bytes received
+* @param signed char steps - registered steps from distance measuring encoder attached to Oerad hardware
 */
-void callback_in(unsigned char* buffer, int received){
+void callback_in(unsigned char* buffer, int received, signed char steps){
   cout << "received: " << received << " bytes" << endl; // this may block your console for input. Best is to feed this to file, some drawing funct or some other stream.
+  printf("steps: %hhd '\n'", steps);
 }
 
 /* This is typedefed as LiberadCallbackOut - must return void and take two params

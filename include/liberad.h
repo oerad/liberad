@@ -26,7 +26,7 @@ enum Gain {LEVEL1 = 0b00110010, LEVEL2 = 0b00110011, LEVEL3 = 0b00110100, LEVEL4
 enum LiberadErrorCodes {LIBERAD_SUCCESS = 1, LIBERAD_ERR = -1, LIBERAD_NOT_INIT = -2, LIBERAD_OERADAR_FIELDS_EMPTY = -3};
 
 /* Function prototype for user defined callback function called on receipt of data from Oerad hardware */
-typedef void (*LiberadCallbackIn)(unsigned char* buffer, int length);
+typedef void (*LiberadCallbackIn)(unsigned char* buffer, int length, signed char steps);
 
 /* Function prototype for user defined callback function called on sending data to Oerad hardware */
 typedef void (*LiberadCallbackOut)(unsigned char* buffer, int length);
